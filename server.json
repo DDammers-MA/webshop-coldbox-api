@@ -1,0 +1,15 @@
+{
+    "app":{
+        "cfengine":"lucee@5"
+    },
+    "name":"testDaniel",
+    "openbrowser":"true",
+    "web":{
+        "http":{
+            "port":"8004"
+        },
+        "rewrites":{
+            "enable":true
+        }
+    }
+}
