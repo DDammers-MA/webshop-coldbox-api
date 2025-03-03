@@ -17,10 +17,16 @@ component extends="coldbox.system.RestHandler" {
 	 * @response    -401     ~auth/login/responses.json##401
 	 */
 	function login( event, rc, prc ){
-		param rc.name = "";
-		param rc.password = bcrypt.hash(rc.password);
+		param rc.email = "";
+		param rc.password = "";
 
-	// writeDump(var=rc, abort=true, label='');
+		var user = userService.retrieveUserByEmail(rc.email).getMemento();
+
+		// Use checkPassword to verify the password
+		if (!bcrypt.checkPassword(rc.password, user.password)) {
+			event.getResponse().setError(true).addMessage("Invalid password");
+			return;
+		}
 		
 		var token = jwtAuth().attempt(rc.email, rc.password);
 
@@ -46,16 +52,16 @@ component extends="coldbox.system.RestHandler" {
 		param rc.password = "";
 		param rc.is_admin = false;
 
-		// Create a new user instance via UserService
+		var hashedPassword = bcrypt.hashPassword(rc.password);
+
 		var user = userService.create({
 			name: rc.name,
 			email: rc.email,
-			password: rc.password,
+			password: hashedPassword,
 			is_admin: rc.is_admin,
 			created_at: now()
 		});
 
-		// Log them in if the user was created successfully
 		event
 			.getResponse()
 			.setData({

@@ -33,6 +33,6 @@ component extends="quick.models.BaseEntity" accessors="true" persistent="true" t
 	this.constraints = {
 		first_name: { required: true, type: "string" },
 		last_name: { required: true, type: "string" },
-		phone: { required: true, type: "string" }
+		
 	};
 }

@@ -37,8 +37,8 @@ component {
 
 		// API Secured Routes
 		get( "/api/whoami", "Echo.whoami" );
-
-			get( "products", "products.index" );
+		get( "products", "products.index" );
+	
 
 
 		// @app_routes@

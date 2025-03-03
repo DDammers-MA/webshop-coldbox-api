@@ -25,7 +25,7 @@ component
     property name="name";
     property name="email";
     property name="email_verified_at";
-    property name="password";
+    property name="password" accessed="true";
     property name="remember_token";
     property name="created_at";
     property name="updated_at";
@@ -71,7 +71,7 @@ component
 
 	this.constraints = {
 		name: { required: true, type: "string" },
-		email: { required: true, type: "email" },
+		// email: { required: true, type: "email" },
 		password: { required: true, type: "string" }
 	};
 

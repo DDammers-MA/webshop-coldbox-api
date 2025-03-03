@@ -10,32 +10,23 @@ component accessors="true" singleton {
 	/**
 	 * Verify if the incoming username/password are valid credentials.
 	 *
-	 * @username The username
+	 * @email The username
 	 * @password The password
 	 */
-	function isValidCredentials( required username, required password ){
+	function isValidCredentials( required email, required password ){
 		var result = false; 
-		var oTarget = retrieveUserByUsername( arguments.username );
+		// Retrieve the user by email
+		// writeDump(var=arguments, abort=true, label="isValidCredentials");
+		var oTarget = retrieveUserByEmail( arguments.email ).getMemento();
 		
-		if ( !oTarget.isLoaded() ) {
+		if ( !isNull(oTarget) ) {
 			return false;
 		}
 
-		try {
-			result = bcrypt.checkPassword( arguments.password, oTarget.getWw() );
-		} catch ( e ) {
-		}
-
-		if (!result) {
-			try {
-				result = bcrypt.checkPassword( arguments.password, oTarget.getWw_tmp() );
-				try {
-					oTarget.setWw_tmp('used');
-					oTarget.save();
-				} catch (e) {
-				}
-			} catch ( e ) {
-			}
+			// Use checkPassword to verify the password
+		if (!bcrypt.checkPassword(arguments.password, oTarget.password)) {
+			event.getResponse().setError(true).addMessage("Invalid password");
+			return false;
 		}
 
 		return result;
@@ -49,13 +40,14 @@ component accessors="true" singleton {
 	 * @return User entity
 	 */
 	function create( required struct userData ){
-		var hashedPassword = bcrypt.hashPassword(userData.password);
+		// var hashedPassword = bcrypt.hashPassword(userData.password);
+
 
 		// Create a new User instance
 		var user = wirebox.getInstance("User")
 			.setName(userData.name)
 			.setEmail(userData.email)
-			.setPassword(hashedPassword)
+			.setPassword(userData.password)
 			.setIs_admin(userData.is_admin) // Ensure correct method is used
 			.setCreated_at(now());
 
@@ -79,6 +71,11 @@ component accessors="true" singleton {
 		return wirebox.getInstance("User").where( "name", arguments.name ).firstOrFail();
 	}
 
+	function retrieveUserByEmail( required email ){
+	var user = wirebox.getInstance("User").where( "email", lcase(arguments.email) ).first();
+
+	return user;
+	}
 	/**
 	 * Retrieve a user by unique identifier
 	 *
@@ -91,7 +88,7 @@ component accessors="true" singleton {
 	}
 
 	function registerCustomer( required User user) {
-    writeDump(var=user, label="Inside createCustomer - UserData");
+  
 
 	var firstName = listFirst(user.getName(), " ");
     var lastName = listRest(user.getName(), " ");
