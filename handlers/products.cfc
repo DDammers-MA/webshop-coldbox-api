@@ -12,5 +12,7 @@ component extends="coldbox.system.RestHandler" {
 
     	event.getResponse().setData( { "items": products } );
     }
+
+
     
 }

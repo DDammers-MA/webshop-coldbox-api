@@ -20,13 +20,13 @@ component extends="coldbox.system.RestHandler" {
 		param rc.email = "";
 		param rc.password = "";
 
-		var user = userService.retrieveUserByEmail(rc.email).getMemento();
+		// var user = userService.retrieveUserByEmail(rc.email).getMemento();
 
 		// Use checkPassword to verify the password
-		if (!bcrypt.checkPassword(rc.password, user.password)) {
-			event.getResponse().setError(true).addMessage("Invalid password");
-			return;
-		}
+		// if (!bcrypt.checkPassword(rc.password, user.password)) {
+		// 	event.getResponse().setError(true).addMessage("Invalid password");
+		// 	return;
+		// }
 		
 		var token = jwtAuth().attempt(rc.email, rc.password);
 

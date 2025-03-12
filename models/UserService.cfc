@@ -16,20 +16,24 @@ component accessors="true" singleton {
 	function isValidCredentials( required email, required password ){
 		var result = false; 
 		// Retrieve the user by email
-		// writeDump(var=arguments, abort=true, label="isValidCredentials");
-		var oTarget = retrieveUserByEmail( arguments.email ).getMemento();
+		var user = retrieveUserByUsername(arguments.email ).getMemento();
+
+		// writeDump(var=oTarget, abort=true, label="isValidCredentials");
+		// writeDump(var=user, abort=true, label="user.password");
 		
-		if ( !isNull(oTarget) ) {
+		if (isNull(user)) {
+			
 			return false;
 		}
 
 			// Use checkPassword to verify the password
-		if (!bcrypt.checkPassword(arguments.password, oTarget.password)) {
+		if (!bcrypt.checkPassword(arguments.password, user.password)) {
 			event.getResponse().setError(true).addMessage("Invalid password");
 			return false;
 		}
 
-		return result;
+
+		return true;
 	}
 
 	/**
@@ -67,15 +71,26 @@ component accessors="true" singleton {
 	 *
 	 * @return User that implements JWTSubject and/or IAuthUser
 	 */
-	function retrieveUserByUsername( required name ){
-		return wirebox.getInstance("User").where( "name", arguments.name ).firstOrFail();
+	function retrieveUserByUsername( required email ){
+		return wirebox.getInstance("User").where("email", arguments.email).firstOrFail();
 	}
 
-	function retrieveUserByEmail( required email ){
-	var user = wirebox.getInstance("User").where( "email", lcase(arguments.email) ).first();
+// 	function retrieveUserByEmail( required email ){
+// 		Log the email being used for retrieval
+// 		writeDump(var=email, label="Email for retrieveUserByEmail");
 
-	return user;
-	}
+// 		var user = wirebox.getInstance("User").where("email", arguments.email).first();
+
+//  var userMemento = user.getMemento(); 
+//      user.password = userMemento.password;
+// 			userAsmemento = user.getMemento();
+
+// 		Log the user object retrieved
+// 		writeDump(var=user, abort=true, label="User retrieved by email");
+// 		writeDump(var=userAsmemento, abort=true, label="User retrieved by email");
+
+// 		return user;
+// 	}
 	/**
 	 * Retrieve a user by unique identifier
 	 *

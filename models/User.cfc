@@ -23,7 +23,7 @@ component
 	property name="wirebox" inject="wirebox" persistent="false";
 	property name="id" fieldtype="id";
     property name="name";
-    property name="email";
+    property name="email"  accessed="true";
     property name="email_verified_at";
     property name="password" accessed="true";
     property name="remember_token";
