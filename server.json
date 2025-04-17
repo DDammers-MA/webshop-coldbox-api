@@ -6,7 +6,7 @@
     "openbrowser":"true",
     "web":{
         "http":{
-            "port":"8004"
+            "port":"8080"
         },
         "rewrites":{
             "enable":true

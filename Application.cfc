@@ -66,7 +66,7 @@ component {
 	 * ORM + Datasource Settings
 	 * --------------------------------------------------------------------------
 	 */
-	this.datasource = "laravel_vue_ecommerce";
+	this.datasource = "laravel_vue";
 
 	/**
 	 * Fires when the application starts

@@ -35,7 +35,8 @@
         "qb":"modules/qb/",
         "BCrypt":"modules/BCrypt/",
         "cborm":"modules/cborm/",
-        "quick":"modules/quick/"
+        "quick":"modules/quick/",
+        "cors":"modules/cors/"
     },
     "dependencies":{
         "coldbox":"^7.0.0",
@@ -45,7 +46,8 @@
         "qb":"10.0.1",
         "BCrypt":"^3.1.0+4",
         "cborm":"^4.5.0+2",
-        "quick":"^11.1.0"
+        "quick":"^11.1.0",
+        "cors":"^3.0.9"
     },
     "scripts":{
         "postInstall":"pathExists .env || cp .env.example .env && package set ignore=[]",

@@ -1,4 +1,4 @@
-component table="products" extends="quick.models.BaseEntity" accessors="true" {
+component table="productangular" extends="quick.models.BaseEntity" accessors="true" {
   
     property name="id";
     property name="title";
