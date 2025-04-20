@@ -5,12 +5,16 @@ component extends="coldbox.system.RestHandler" {
      */
     function index(event, rc, prc){
 
-        var users = getInstance("Users").asQuery()
-        .select()
-        .where("email", rc)
-        .first()
+var authUser = jwtAuth().getUser();
+
+        // writeDump(var=rc, abort=true, label="rc");
+
+        // var users = getInstance("Users").asQuery()
+        // .select()
+        // .where("email", rc)
+        // .first()
     
-    	event.getResponse().setData( users  );
+    	event.getResponse().setData( authUser.getMemento("id,name,email,is_admin")  );
     }
 
 
