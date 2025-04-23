@@ -37,10 +37,12 @@ component {
 
 		// API Secured Routes
 		get( "/api/whoami", "Echo.whoami" );
+		get( "users", "Users.users" );
 		get( "/api.user", "Users.index" );
 
 		get( "products", "products.index" );
 		post( "products", "products.create" );
+
 	
 
 
