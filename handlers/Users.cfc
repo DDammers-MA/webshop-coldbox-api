@@ -39,6 +39,19 @@ var authUser = jwtAuth().getUser();
 				// .orWhere( 'tekst', 'LIKE', '%#rc.search#%' )
 			});
 		}
+
+        
+         if (rc.keyExists('isAdmin')) {
+        // writeDump(var=rc,abort=true)
+				users.whereIn( 'is_admin', rc.isAdmin )
+				// .orWhere( 'tekst', 'LIKE', '%#rc.search#%' )
+		
+		}
+
+        //      if (rc.keyExists('admin')) {
+        //         users.where("is_admin" , rc.admin)
+		// }
+    
     
 
      event.getResponse().setData( users.get() );
