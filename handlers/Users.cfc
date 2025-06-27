@@ -22,8 +22,6 @@ var authUser = jwtAuth().getUser();
      * index
      */
     function users(event, rc,prc){
-
-
     // writeDump(var = rc, abort=true)
      var users = getInstance("Users").asMemento()
  if (rc.keyExists('name')) {
@@ -57,8 +55,30 @@ var authUser = jwtAuth().getUser();
      event.getResponse().setData( users.get() );
 
     }
-    
 
 
-    
+
+/**
+ * index
+ */
+function create(event, rc, prc){
+    // writeDump(var=rc, abort=true, label="rc");
+
+    var users = populate("Users");
+    // Validate it
+    var vResults = validateModel( users );
+    // Check it
+    if ( vResults.hasErrors() ) {
+        // Return the errors
+        event.getResponse().setStatus( 400 );
+        event.getResponse().setData( vResults.getAllErrors() );
+    } else {
+        // Save the message
+        users.save();
+        // Return the message
+        event.getResponse().setStatus( 201 );
+        event.getResponse().setData( { 'item': users.getMemento() } );
+    }
+}
+
 }

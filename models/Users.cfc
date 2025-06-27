@@ -47,8 +47,8 @@ property name="wirebox" inject="wirebox" persistent="false";
 
     // Validation for create.
     this.constraints = {
-        name: { required: true, type: "string", maxLength: 255 },
+        name: { required: true, type: "string", },
         email: { required: true, type: "email" },
-        password: { required: true, type: "string", minLength: 8 }
+        password: { required: true, type: "string" }
     };
 }

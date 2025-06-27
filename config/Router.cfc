@@ -39,6 +39,7 @@ component {
 		get( "/api/whoami", "Echo.whoami" );
 		get( "users", "Users.users" );
 		get( "/api.user", "Users.index" );
+		post("users", "Users.create" );
 
 		get( "products", "products.index" );
 		post( "products", "products.create" );
