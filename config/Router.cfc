@@ -37,14 +37,16 @@ component {
 
 		// API Secured Routes
 		get( "/api/whoami", "Echo.whoami" );
-		get( "users", "Users.users" );
+		// post("users", "Users.create" );
+		// get( "users", "Users.users" );
 		get( "/api.user", "Users.index" );
-		post("users", "Users.create" );
 
 		get( "products", "products.index" );
 		post( "products", "products.create" );
 
-	
+	route( "users" )
+			.withHandler( "Users" )
+			.toAction( { "GET" : "users", "POST" : "create" } )
 
 
 		// @app_routes@

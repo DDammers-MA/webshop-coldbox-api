@@ -1,5 +1,5 @@
 component extends="coldbox.system.RestHandler" {
-    
+	property name="bcrypt" inject="BCrypt@BCrypt";
     /**
      * index
      */
@@ -24,6 +24,8 @@ var authUser = jwtAuth().getUser();
     function users(event, rc,prc){
     // writeDump(var = rc, abort=true)
      var users = getInstance("Users").asMemento()
+
+
  if (rc.keyExists('name')) {
 	users.where( function( q ) {
 				q.whereLike( 'name', '%#rc.name#%' )
@@ -65,6 +67,11 @@ function create(event, rc, prc){
     // writeDump(var=rc, abort=true, label="rc");
 
     var users = populate("Users");
+
+   var hashedPassword = bcrypt.hashPassword(rc.password);
+    users.setPassword(hashedPassword);
+
+
     // Validate it
     var vResults = validateModel( users );
     // Check it

@@ -32,4 +32,15 @@ component extends="coldbox.system.EventHandler" {
 		// Place exception handler below:
 	}
 
+	 function onInvalidHTTPMethod(event, rc, prc) {
+        event.renderData(
+            type="json",
+            data={
+                error: "Invalid HTTP method",
+                message: "The requested HTTP method is not allowed for this route."
+            },
+            statusCode=405
+        );
+    }
+
 }

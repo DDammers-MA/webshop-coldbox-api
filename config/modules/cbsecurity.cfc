@@ -49,6 +49,7 @@ component {
 			 * Here you can configure the operation of the firewall and especially what Validator will be in charge of verifying authentication/authorization
 			 * during a matched request.
 			 */
+
 			firewall : {
 				// Auto load the global security firewall automatically, else you can load it a-la-carte via the `Security` interceptor
 				"autoLoadFirewall"            : true,
